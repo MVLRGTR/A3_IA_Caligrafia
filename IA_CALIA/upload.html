@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise da Imagem</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Vamos analisar a imagem!</h2>
+        <input type="file" id="imageInput" accept="image/*" class="styled-button"> <!-- Botão "Escolher arquivo" -->
+        <div id="imagePreview" class="image-container"></div> <!-- Espaço para a imagem anexada -->
+        <div id="resultButtons" class="hidden"> <!-- Classe hidden por padrão -->
+            <button id="analyzeButton" class="styled-button">Analisar Imagem</button>
+            <button id="reuploadButton" class="styled-button">Anexar Novamente</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
