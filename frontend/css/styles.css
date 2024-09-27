@@ -162,3 +162,113 @@ button:hover {
     gap: 20px;
     margin-top: 20px;
 }
+
+
+/* PRELOADER */
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.loader {
+    display: block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px; /* Aumentei ainda mais para 250px */
+    height: 250px; /* Aumentei ainda mais para 250px */
+    margin: -125px 0 0 -125px; /* Ajustei a margem para o novo tamanho */
+    border: 10px solid rgba(0, 0, 0, 0); /* Aumentei a espessura para 10px */
+    border-top-color: #8e5c3d; /* Manter a cor ajustada */
+    border-radius: 100%;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    z-index: 1001;
+}
+
+.loader:before {
+    content: "";
+    position: absolute;
+    top: 10px; /* Ajustei o espaçamento */
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 10px solid transparent; /* Aumentei a espessura para 10px */
+    border-top-color: #a07552; /* Um tom intermediário da paleta */
+    border-radius: 100%;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+.loader:after {
+    content: "";
+    position: absolute;
+    top: 30px; /* Ajustei o espaçamento */
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    border: 10px solid transparent; /* Aumentei a espessura para 10px */
+    border-top-color: #5e3d29; /* Um tom mais escuro da paleta */
+    border-radius: 100%;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+
+/* Mantive as animações */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+
+.loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    background: rgba(255, 255, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+/* Loaded Styles */
+.loaded .loader-wrapper .loader-section.section-bg {
+    transition: all 0.3s;
+}
+
+.loaded .loader {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.loaded .loader-wrapper {
+    visibility: hidden;
+    transition: all ease-out;
+}
