@@ -151,6 +151,6 @@ def main(image_path):
         print("Não foi possível identificar uma correspondência para a imagem.")
 
 if __name__ == '__main__':
-    image_path = './classificar/erro3.jpeg'  # Exemplo de caminho de imagem
+    image_path = './teste/abom.png'  # Exemplo de caminho de imagem
     main(image_path)
 
