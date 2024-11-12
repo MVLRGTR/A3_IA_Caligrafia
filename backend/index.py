@@ -1,88 +1,102 @@
-import tensorflow as tf
-from tensorflow.keras.models import load_model
+import os
 import cv2
 import numpy as np
-import os
+import sys
+from sklearn.metrics.pairwise import cosine_similarity
+from PIL import Image
+import json
 
-# Caminho onde o modelo treinado será salvo
-model_path = 'model_classificador_vogais.h5'
+def process_image(image_path):
+    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    image_resized = cv2.resize(image, (100, 100))
+    image_flattened = image_resized.flatten()
+    return image_flattened
 
-# Diretório das imagens de treino, que deve conter as subpastas para cada letra e qualidade
-train_dir = 'caminho_para_imagens_de_treino'
+def load_reference_images(base_path):
+    reference_images = {}
+    vogais = ['a', 'e', 'i', 'o', 'u']
+    categorias = ['bom', 'razoavel', 'ruim']
 
-# 1. Treinando e Salvando o Modelo (execute esta parte apenas uma vez)
-def treinar_e_salvar_modelo():
-    from tensorflow.keras.preprocessing.image import ImageDataGenerator
-    from tensorflow.keras.models import Sequential
-    from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+    for vogal in vogais:
+        reference_images[vogal] = {}
+        for categoria in categorias:
+            categoria_path = os.path.join(base_path, vogal, categoria)
 
-    # Configuração do gerador de dados
-    train_datagen = ImageDataGenerator(rescale=1./255)
-    train_generator = train_datagen.flow_from_directory(
-        train_dir,
-        target_size=(64, 64),
-        batch_size=32,
-        class_mode='categorical'
-    )
+            if not os.path.exists(categoria_path):
+                print(f"Erro: O caminho {categoria_path} não existe.")
+                continue
+            
+            images = []
+            for file in os.listdir(categoria_path):
+                if file.endswith('.jpg') or file.endswith('.png'):
+                    image_path = os.path.join(categoria_path, file)
+                    image = process_image(image_path)
+                    images.append(image)
+            
+            reference_images[vogal][categoria] = images
+    
+    return reference_images
 
-    # Estrutura da CNN
-    model = Sequential([
-        Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)),
-        MaxPooling2D((2, 2)),
-        Conv2D(64, (3, 3), activation='relu'),
-        MaxPooling2D((2, 2)),
-        Conv2D(128, (3, 3), activation='relu'),
-        MaxPooling2D((2, 2)),
-        Flatten(),
-        Dense(128, activation='relu'),
-        Dropout(0.5),
-        Dense(train_generator.num_classes, activation='softmax')  # Número de classes
-    ])
+def compare_images(input_image, reference_images):
+    similarities = {}
+    for categoria, imagens in reference_images.items():
+        if imagens:  # Certifique-se de que há imagens para comparar
+            similarity_scores = [cosine_similarity([input_image], [img])[0][0] for img in imagens]
+            similarities[categoria] = max(similarity_scores)  
+    best_fit = max(similarities, key=similarities.get)
+    return best_fit, similarities[best_fit]
 
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+def identify_vowel(input_image, reference_images):
+    best_match_vogal = None
+    best_match_score = -1
+    best_match_category = None
 
-    # Treinando o modelo
-    model.fit(train_generator, epochs=10)
+    for vogal, categorias in reference_images.items():
+        for categoria, imagens in categorias.items():
+            if imagens:  # Certifique-se de que há imagens para comparar
+                similarity_scores = [cosine_similarity([input_image], [img])[0][0] for img in imagens]
+                max_score = max(similarity_scores)
+                if max_score > best_match_score:
+                    best_match_score = max_score
+                    best_match_vogal = vogal
+                    best_match_category = categoria
 
-    # Salvando o modelo treinado
-    model.save(model_path)
-    print("Modelo treinado e salvo em:", model_path)
+    return best_match_vogal, best_match_category, best_match_score
 
-# 2. Função para carregar o modelo e classificar uma imagem
-def classificar_imagem(image_path):
-    # Carrega o modelo treinado
-    model = load_model(model_path)
+def main(image_path):
+    base_path = './base_de_Dados'
+    reference_images = load_reference_images(base_path)
 
-    # Carrega e pré-processa a imagem
-    img = cv2.imread(image_path)
-    img = cv2.resize(img, (64, 64))  # Redimensiona para o tamanho de entrada do modelo
-    img = np.expand_dims(img, axis=0) / 255.0  # Normaliza e adiciona dimensão extra
+    test_image = process_image(image_path)
+    best_vogal, best_category, score = identify_vowel(test_image, reference_images)
 
-    # Realiza a predição
-    prediction = model.predict(img)
+    if (best_vogal and score > 0.95):
+        # print(f"A imagem foi identificada como pertencente à vogal '{best_vogal}' e classificada como '{best_category}'.")
+        # print(f"Score de similaridade: {score:.2f}")
+        resultado = {
+            "vogal" : best_vogal,
+            "categoria":best_category,
+            "similaridade":score
+        }
+        return resultado
+    else:
+        # print("Não foi possível identificar uma correspondência para a imagem.")
+        resultado = {
+            "categoria":"Nenhuma categoria pode ser atribuida a imagem "
+        }
+        return resultado
 
-    # Carregar as classes de rótulos automaticamente
-    train_datagen = ImageDataGenerator(rescale=1./255)
-    train_generator = train_datagen.flow_from_directory(
-        train_dir,
-        target_size=(64, 64),
-        batch_size=32,
-        class_mode='categorical'
-    )
-    label_map = train_generator.class_indices
-    labels = {v: k for k, v in label_map.items()}
+# if __name__ == '__main__':
+#     image_path = './teste/erro3.jpeg'  # Exemplo de caminho de imagem
+#     main(image_path)
 
-    # Converte o índice para a classe e qualidade
-    predicted_class = np.argmax(prediction, axis=1)[0]
-    letra, qualidade = labels[predicted_class].split('_')
+if __name__ == '__main__':
+        if len(sys.argv) < 2:
+            print("Erro: Caminho da imagem não foi fornecido.")
+            sys.exit(1)
+        image_path = sys.argv[1]
+        print(f'imagem path {image_path}')
+        resultado = main(image_path)
+        print(json.dumps(resultado))
 
-    return letra, qualidade
-
-# Exemplo de uso
-# Treine e salve o modelo uma vez
-# treinar_e_salvar_modelo()
-
-# Classifique uma nova imagem
-image_path = 'caminho_para_imagem_a_classificar'
-letra, qualidade = classificar_imagem(image_path)
-print(f'Letra: {letra}, Qualidade: {qualidade}')
+        
