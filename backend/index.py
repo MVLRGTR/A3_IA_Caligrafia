@@ -64,7 +64,7 @@ def identify_vowel(input_image, reference_images):
     return best_match_vogal, best_match_category, best_match_score
 
 def main(image_path):
-    base_path = './base_de_Dados'
+    base_path = './base de dados'
     reference_images = load_reference_images(base_path)
 
     test_image = process_image(image_path)
@@ -90,13 +90,11 @@ def main(image_path):
 #     image_path = './teste/erro3.jpeg'  # Exemplo de caminho de imagem
 #     main(image_path)
 
-if __name__ == '__main__':
-        if len(sys.argv) < 2:
-            print("Erro: Caminho da imagem não foi fornecido.")
-            sys.exit(1)
-        image_path = sys.argv[1]
-        print(f'imagem path {image_path}')
-        resultado = main(image_path)
-        print(json.dumps(resultado))
 
-        
+if len(sys.argv) < 2:
+    print("Erro: Caminho da imagem não foi fornecido.")
+    sys.exit(1)
+image_path = './classificar/'+os.path.basename(sys.argv[1])
+# print(f'imagem path do script python {image_path}')
+resultado = main(image_path)
+print(json.dumps(resultado))
