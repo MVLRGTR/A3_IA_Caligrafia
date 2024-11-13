@@ -10,8 +10,6 @@ const app = express()
 app.use(express.json())
 app.use(cors({Credential:true,origin: process.env.URL_FRONTEND}))
 
-
-
 const imageStorage = multer.diskStorage({
     destination:function(req,file,cb){
         cb(null,'classificar/')
@@ -44,7 +42,6 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
     const pythonPath = path.join(__dirname, 'venv', 'Scripts', 'python.exe')
     const pythonProcess = spawn(pythonPath, ['index.py', imagePath])
 
-
     let pythonOutput = ''
     pythonProcess.stdout.on('data', (data) => {
         pythonOutput += data.toString()
@@ -53,7 +50,6 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Erro: ${data}`)
     });
-
 
     pythonProcess.on('close', (code) => {
         fs.unlink(imagePath, (err) => {
@@ -64,10 +60,7 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
             return res.status(500).json({ error: 'Erro ao executar o script Python' })
         }
         // try {
-        //     // Analisa a saída do Python como JSON
         //     const parsedOutput = JSON.parse(pythonOutput.trim());
-    
-        //     // Envia a resposta com o JSON formatado corretamente
         //     res.status(200).json(parsedOutput);
         // } catch (err) {
         //     console.error(`Erro ao analisar a saída do Python: ${err}`);
