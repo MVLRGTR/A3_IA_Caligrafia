@@ -66,8 +66,9 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
         //     console.error(`Erro ao analisar a saída do Python: ${err}`);
         //     res.status(500).json({ error: 'Erro ao processar a saída do script Python' });
         // }
-
-        const parseJson = JSON.parse(pythonOutput.trim())
+        // const parseJson = JSON.parse(pythonOutput.trim())
+        
+        const parseJson = JSON.parse(pythonOutput)
         res.status(200).json(parseJson)
     })
 })

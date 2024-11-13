@@ -4,7 +4,8 @@
   "description": "backend da ia para reconhecer as letras",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start" : "node index.js",
+    "venv" : "venv/Scripts/activate"
   },
   "author": "Grupo A3",
   "license": "ISC",
