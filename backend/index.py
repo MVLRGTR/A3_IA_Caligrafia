@@ -40,7 +40,7 @@ def load_reference_images(base_path):
 def compare_images(input_image, reference_images):
     similarities = {}
     for categoria, imagens in reference_images.items():
-        if imagens:  # Certifique-se de que há imagens para comparar
+        if imagens:  
             similarity_scores = [cosine_similarity([input_image], [img])[0][0] for img in imagens]
             similarities[categoria] = max(similarity_scores)  
     best_fit = max(similarities, key=similarities.get)
@@ -53,7 +53,7 @@ def identify_vowel(input_image, reference_images):
 
     for vogal, categorias in reference_images.items():
         for categoria, imagens in categorias.items():
-            if imagens:  # Certifique-se de que há imagens para comparar
+            if imagens:  
                 similarity_scores = [cosine_similarity([input_image], [img])[0][0] for img in imagens]
                 max_score = max(similarity_scores)
                 if max_score > best_match_score:
@@ -86,15 +86,9 @@ def main(image_path):
         }
         return resultado
 
-# if __name__ == '__main__':
-#     image_path = './teste/erro3.jpeg'  # Exemplo de caminho de imagem
-#     main(image_path)
-
-
 if len(sys.argv) < 2:
     print("Erro: Caminho da imagem não foi fornecido.")
     sys.exit(1)
 image_path = './classificar/'+os.path.basename(sys.argv[1])
-# print(f'imagem path do script python {image_path}')
 resultado = main(image_path)
 print(json.dumps(resultado))
