@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análise da Imagem</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" href="./imagens/calia.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <header>
         <img src="imagens/CALIA.jpeg" alt="">
         <section class="navbar">
-            <a href="#">inicio</a>
-            <a href="#">Sobre Nós</a>
-            <a href="#">Tipos de caligrafia</a>
+            <a href="index.html" >inicio</a>
+            <a href="aboutus.html" >Sobre Nós</a>
+            <a href="type.html" id="type">Tipos de caligrafia</a>
         </section>
     </header>
     <div class="container">
@@ -21,7 +22,8 @@
         <input type="file" id="imageInput" accept="image/*" class="styled-button"> 
         <div id="imagePreview" class="image-container"></div> 
         <div id="resultButtons" class="hidden"> <!-- Classe hidden por padrão -->
-            <button id="analyzeButton" class="styled-button">Analisar Imagem</button>
+            <!-- <button id="analyzeButton" class="styled-button">Analisar Imagem</button> -->
+             <p id="analyzeButton" class="styled-button">Analisar imagem</p>
             <button id="reuploadButton" class="styled-button">Anexar Novamente</button>
         </div>
     </div>
@@ -31,6 +33,7 @@
         </section>
         <p class="title"><span className="bold">Calia</span> &copy; 2024</p>
     </footer>
-    <script src="../js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>

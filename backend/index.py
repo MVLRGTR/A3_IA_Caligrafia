@@ -71,8 +71,6 @@ def main(image_path):
     best_vogal, best_category, score = identify_vowel(test_image, reference_images)
 
     if (best_vogal and score > 0.95):
-        # print(f"A imagem foi identificada como pertencente à vogal '{best_vogal}' e classificada como '{best_category}'.")
-        # print(f"Score de similaridade: {score:.2f}")
         resultado = {
             "vogal" : best_vogal,
             "categoria":best_category,
@@ -80,7 +78,6 @@ def main(image_path):
         }
         return resultado
     else:
-        # print("Não foi possível identificar uma correspondência para a imagem.")
         resultado = {
             "categoria":"Nenhuma categoria pode ser atribuida a imagem "
         }
