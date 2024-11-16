@@ -4,6 +4,7 @@ import api from "./api/api";
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState(null)
   const [imagePreview, setImagePreview] = useState('')
+  const [returnApi,setReturnApi] =useState('')
 
   function handleFileChange(event:any){
       const file = event.target.files[0]
@@ -30,10 +31,11 @@ export default function Home() {
         .catch((Erro) => {
           console.log(`Erro : ${Erro.response.data}`)
         })
-
+        setReturnApi(data)
     }catch(Erro){
       console.log(`Erro : ${Erro}`)
     }
+    console.log(`returnApi : ${returnApi.vogal}`)
   }
 
   return (
