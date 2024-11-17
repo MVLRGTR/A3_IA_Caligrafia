@@ -92,7 +92,7 @@ async function api(formData) {
                 }
             }
         ).then((response)=>{
-            console.log(`then response : ${response.data}`)
+            console.log(`then response : ${JSON.stringify(response.data)}`)
             return response.data
         }).catch((Erro)=>{
             msgType = 'error'

@@ -79,7 +79,7 @@ def main(image_path):
         return resultado
     else:
         resultado = {
-            "categoria":"Nenhuma categoria pode ser atribuida a imagem "
+            "categoria":'Não foi possivél fazer a classificação da imagem !!!'
         }
         return resultado
 

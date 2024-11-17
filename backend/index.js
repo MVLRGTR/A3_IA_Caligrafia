@@ -67,17 +67,16 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
         }
         try {
             const parsedOutput = JSON.parse(pythonOutput.trim())
-            res.status(200).json(parsedOutput)
+            if(parsedOutput.categoria === 'erro'){
+                res.status(200).json({classification:'erro',parsedOutput})
+            }else{
+                res.status(200).json({classification:'ok',parsedOutput})
+            }
         } catch (err) {
             console.error(`Erro ao analisar a saída do Python: ${err}`);
-            res.status(500).json({ error: 'Erro ao processar a saída do script Python' });
+            res.status(500).json({ message: 'Erro ao processar a saída do script Python' });
         }
     })
-    
-    // const parsedOutput = JSON.parse(pythonOutput.trim())
-    console.log(`pythonput 2 : ${pythonOutput}`)
-    // res.status(200).json(parsedOutput)
-    // res.status(200).json({message:'texto de teste'})
 })
 
 app.post('/teste',(req,res)=>{
