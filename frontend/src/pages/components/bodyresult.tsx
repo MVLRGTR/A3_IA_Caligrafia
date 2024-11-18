@@ -6,9 +6,9 @@ import Image from "next/image"
 
 export default function BodyResult() {
 
-    const [vowel,setVowel]= useState(localStorage.getItem('vowel'))
-    const [category,setCategory] = useState(localStorage.getItem('category'))
-    const [similarity,setSimilarity] = useState(localStorage.getItem('similarity'))
+    const [vowel, setVowel] = useState<string | null>(null)
+    const [category, setCategory] = useState<string | null>(null)
+    const [similarity, setSimilarity] = useState<string | null>(null)
     const [imagePreview, setImagePreview] = useState<string>('')
     const router = useRouter()
 
@@ -21,9 +21,18 @@ export default function BodyResult() {
     }
 
     useEffect(() => {
-        const savedImage = localStorage.getItem('image');
-        if (savedImage) {
-            setImagePreview(savedImage); 
+        if (typeof window !== 'undefined') { 
+            const savedVowel = localStorage.getItem('vowel')
+            const savedCategory = localStorage.getItem('category')
+            const savedSimilarity = localStorage.getItem('similarity')
+            const savedImage = localStorage.getItem('image')
+
+            setVowel(savedVowel)
+            setCategory(savedCategory)
+            setSimilarity(savedSimilarity)
+            if (savedImage) {
+                setImagePreview(savedImage) 
+            }
         }
     }, [])
 
@@ -33,11 +42,12 @@ export default function BodyResult() {
             <div className="text-center max-w-4xl p-5 m-auto w-[420px]">
                 <h1 className="mb-5 text-4xl font-bold text-custom-blue">Resultado da Análise</h1>
                 {imagePreview && imagePreview !== '' && (
-                <img
-                    src={imagePreview}
-                    alt="Pré-visualização"
-                    style={{ maxWidth: '350px', maxHeight: '280px', borderRadius: '8px', margin: 'auto' }}
-                />
+                // <img
+                //     src={imagePreview}
+                //     alt="Pré-visualização"
+                //     style={{ maxWidth: '350px', maxHeight: '280px', borderRadius: '8px', margin: 'auto' }}
+                // />
+                <Image src={imagePreview} alt='preview' className="max-w-[350px] h-auto rounded-lg m-auto" width={300} height={300}></Image>
             )}
                 <div className="bg-white rounded-md p-5 mb-5 mt-5 shadow-md  flex flex-col justify-between">
                     {vowel !== 'undefined' && (

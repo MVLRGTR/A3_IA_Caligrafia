@@ -28,7 +28,7 @@ export default function BodyTypeCalia(){
                 <Image src={gotica} alt='copperplate' className="w-[120px] h-[120px] rounded-lg m-auto"></Image>
                 <div className="m-auto ml-5 w-[750px] flex flex-col">
                     <h2 className="text-custom-blue font-bold text-lg ">Caligrafia Gotica</h2>
-                    <p className="text-custom-blue "><span className="font-semibold">Características:</span> Também conhecida como "Blackletter", é caracterizada por suas linhas grossas e finas contrastantes e ângulos agudos. Surgiu na Europa durante a Idade Média e era frequentemente usada em manuscritos religiosos.</p>
+                    <p className="text-custom-blue "><span className="font-semibold">Características:</span> Também conhecida como Blackletter, é caracterizada por suas linhas grossas e finas contrastantes e ângulos agudos. Surgiu na Europa durante a Idade Média e era frequentemente usada em manuscritos religiosos.</p>
                     <p className="text-custom-blue"><span className="font-semibold">Aplicações:</span>  Muito usada em convites formais, logotipos de marcas de luxo e títulos de obras históricas.</p>
                 </div>
             </article>

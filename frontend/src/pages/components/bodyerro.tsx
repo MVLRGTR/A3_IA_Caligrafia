@@ -1,19 +1,34 @@
-import { useState ,useEffect } from "react"
+import {useEffect,useCallback ,useState} from "react"
 import { useRouter } from "next/router"
 
 export default function ErroMsg() {
-    const [erro, setErro] = useState(localStorage.getItem('erro'))
+    const [erro, setErro] = useState<string | null>(null)
     const router = useRouter()
-    function retirectToHome() {
+    // function retirectToHome() {
+    //     setTimeout(() => {
+    //         localStorage.setItem('erro','undefined')
+    //         router.push('/upload')
+    //     }, 8000)
+    // }
+
+    const redirectToHome = useCallback(() => {
         setTimeout(() => {
-            localStorage.setItem('erro','undefined')
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('erro', 'undefined')
+            }
             router.push('/upload')
         }, 8000)
-    }
+    }, [router])
 
     useEffect(()=>{
-        retirectToHome()
-    },[])
+        if (typeof window !== 'undefined') {
+            const erroLocalStorage = localStorage.getItem('erro')
+            setErro(erroLocalStorage)
+        }
+        redirectToHome()
+    },[redirectToHome])
+
+    
 
     return (
         <div className="m-auto">
