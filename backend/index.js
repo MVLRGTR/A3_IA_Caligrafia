@@ -84,7 +84,7 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
     })
 })
 
-app.post('/teste',(req,res)=>{
+app.get('/',(req,res)=>{
     res.status(200).json({message:'Esta funcionando !!!'})
 })
 
