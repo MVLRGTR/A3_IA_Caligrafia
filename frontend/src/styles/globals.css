@@ -34,3 +34,8 @@ body {
   height: 50px;
   animation: spin 2s linear infinite;
 }
+
+.backdrop-opacity {
+  backdrop-filter: brightness(0.9);
+}
+

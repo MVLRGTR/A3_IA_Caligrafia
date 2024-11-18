@@ -26,6 +26,7 @@ export default function BodyUpload() {
         setLoading(true)
 
         try {
+            console.log(`entrou aqui com NEXT_PUBLIC_API_BASE_URL : ${process.env.BASE_URL}`)
             await api.post('/analyze-image', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -87,7 +88,7 @@ export default function BodyUpload() {
             <input className="bg-custom-blue p-3 cursor-pointer rounded-md duration-500 hover:opacity-70 text-white" type="file" accept="image/*" onChange={handleFileChange} />
             {imagePreview && (
                 <div >
-                    <h2 className="mt-3 mb-3 font-bold">Pré-visualização da imagem:</h2>
+                    <h2 className="mt-3 mb-3 font-bold text-custom-blue">Pré-visualização da imagem:</h2>
                     <img src={imagePreview} alt="Pré-visualização" style={{ maxWidth: '350px', maxHeight: '350px', borderRadius: '8px', margin: 'auto' }} />
                     <button className="bg-custom-blue h-[40px] w-[180px] mt-8 rounded-md duration-500 hover:scale-110 text-white " onClick={uploadFile}>Analisar imagem</button>
                     <button className="bg-custom-blue h-[40px] w-[180px]  ml-4 rounded-md duration-500 hover:scale-110 text-white" onClick={redirectToUpload}>Limpar Seleção</button>

@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage:{
+        'custom-bg':"url('/bgimage.jpg')"
+      },
       colors: {
         'custom-blue': '#1a2639',
         'custom-orange': '#f1a96d',

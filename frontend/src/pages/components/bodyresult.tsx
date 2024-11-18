@@ -31,7 +31,7 @@ export default function BodyResult() {
 
     return (
             <div className="text-center max-w-4xl p-5 m-auto w-[420px]">
-                <h1 className="mb-5 text-4xl font-bold">Resultado da Análise</h1>
+                <h1 className="mb-5 text-4xl font-bold text-custom-blue">Resultado da Análise</h1>
                 {imagePreview && imagePreview !== '' && (
                 <img
                     src={imagePreview}
@@ -42,25 +42,25 @@ export default function BodyResult() {
                 <div className="bg-white rounded-md p-5 mb-5 mt-5 shadow-md  flex flex-col justify-between">
                     {vowel !== 'undefined' && (
                         <article className="flex row-auto h-[40px] mt-3">
-                            <h3 className="text-lg font-semibold">Vogal reconhecida :</h3>
-                            <p className="text-lg font-semibold ml-4">{vowel}</p>
+                            <h3 className="text-lg font-semibold text-custom-blue">Vogal reconhecida :</h3>
+                            <p className="text-lg font-semibold ml-4 text-custom-blue">{vowel}</p>
                         </article>
                     )}
                     {category === 'Não foi possivél fazer a classificação da imagem como uma vogal !!!' ? (
                         <article className="flex row-auto h-[40px]">
-                            <p className="text-lg font-semibold">{category}</p>
+                            <p className="text-lg font-semibold text-custom-blue">{category}</p>
                         </article>
                     ):(
                         <article className="flex row-auto h-[40px]">
-                            <h3 className="text-lg font-semibold">Classificado como:</h3>
-                            <p className="text-lg font-semibold ml-4">{category}</p>
+                            <h3 className="text-lg font-semibold text-custom-blue">Classificado como:</h3>
+                            <p className="text-lg font-semibold ml-4 text-custom-blue">{category}</p>
                         </article>
                     )}
 
                     {similarity !== 'undefined' &&(
                         <article className="flex row-auto h-[40px]">
-                            <h3 className="text-lg font-semibold">Grau de Similaridade:</h3>
-                            <p className="text-lg font-semibold ml-4">{Number(similarity).toFixed(4)}</p>
+                            <h3 className="text-lg font-semibold text-custom-blue">Grau de Similaridade:</h3>
+                            <p className="text-lg font-semibold ml-4 text-custom-blue">{Number(similarity).toFixed(4)}</p>
                         </article>
                     )}
                 </div>

@@ -13,8 +13,8 @@ export default function Navbar() {
     }
 
     return (
-        <div className=" h-[130px] bg-custom-orange flex">
-            <Image src={logo} alt="logo" className=" w-[100px] h-[100px] rounded-full m-4"></Image>
+        <div className=" h-[130px] bg-custom-orange flex shadow-2xl">
+            <Image src={logo} alt="logo" className=" w-[100px] h-[100px] rounded-full m-4 shadow-2xl"></Image>
             <section className="flex m-auto">
                 <Link style={linkStyle} className="duration-500 hover:scale-110" href={'/'}>Inicio</Link>
                 <Link style={linkStyle} className="duration-500 hover:scale-110" href={'/aboutus'}>Sobre Nós</Link>
