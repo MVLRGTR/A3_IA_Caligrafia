@@ -35,7 +35,7 @@ const imageUpload = multer({
 app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
     
     if(!req.file){
-        return res.status(400).json({ error: 'Imagem não fornecida , por favor verifique !!!' })
+        return res.status(400).json({script:'erro', message: 'Imagem não fornecida , por favor verifique !!!' })
     }
 
     const imagePath = path.resolve(req.file.path)
@@ -48,7 +48,6 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
     let pythonOutput = ''
     pythonProcess.stdout.on('data', (data) => {
         pythonOutput += data.toString()
-        console.log(`pythonput 1 : ${pythonOutput}`)
     })
 
     pythonProcess.stderr.on('data', (data) => {
@@ -63,15 +62,21 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
         });
 
         if (code !== 0) {
-            return res.status(500).json({ error: 'Erro ao executar o script Python' })
+            return res.status(500).json({ 
+                script:'erro',
+                error: 'Erro ao executar o script Python' })
         }
         try {
             const parsedOutput = JSON.parse(pythonOutput.trim())
-            if(parsedOutput.categoria === 'erro'){
-                res.status(200).json({classification:'erro',parsedOutput})
-            }else{
-                res.status(200).json({classification:'ok',parsedOutput})
-            }
+            res.status(200).json({
+                script:'ok',
+                parsedOutput
+            })
+            // if(parsedOutput.categoria === 'erro'){
+            //     res.status(200).json({classification:'erro',parsedOutput})
+            // }else{
+            //     res.status(200).json({classification:'ok',parsedOutput})
+            // }
         } catch (err) {
             console.error(`Erro ao analisar a saída do Python: ${err}`);
             res.status(500).json({ message: 'Erro ao processar a saída do script Python' });

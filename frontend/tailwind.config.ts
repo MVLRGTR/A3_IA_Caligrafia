@@ -9,6 +9,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'custom-blue': '#1a2639',
         'custom-orange': '#f1a96d',
         'custom-hover': '#111b2b',
         'custom-gr1': '#f5e6d3',

@@ -79,7 +79,7 @@ def main(image_path):
         return resultado
     else:
         resultado = {
-            "categoria":'Não foi possivél fazer a classificação da imagem !!!'
+            "categoria":'Não foi possivél fazer a classificação da imagem como uma vogal !!!'
         }
         return resultado
 
