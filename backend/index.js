@@ -48,12 +48,12 @@ app.post('/analyze-image', imageUpload.single('image'), (req, res) => {
         return res.status(400).json({ script: 'erro', message: 'Imagem não fornecida , por favor verifique !!!' })
     }
 
-    const classificarDir = path.join(__dirname, 'classificar');
+    // const classificarDir = path.join(__dirname, 'classificar');
 
-    if (!fs.existsSync(classificarDir)) {
-        fs.mkdirSync(classificarDir, { recursive: true });
-        console.log('Pasta "classificar" criada.');
-    }
+    // if (!fs.existsSync(classificarDir)) {
+    //     fs.mkdirSync(classificarDir, { recursive: true });
+    //     console.log('Pasta "classificar" criada.');
+    // }
 
 
     const imagePath = path.resolve(req.file.path)
