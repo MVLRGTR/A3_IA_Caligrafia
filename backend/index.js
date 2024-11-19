@@ -23,13 +23,14 @@ app.use(cors({ Credential: true, origin: process.env.URL_FRONTEND }))
 
 const imageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './classificar/')
+        const classificarDir = path.resolve(__dirname, 'classificar')
+        cb(null, classificarDir)
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname))
     }
-
 })
+
 
 const imageUpload = multer({
     storage: imageStorage,
