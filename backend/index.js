@@ -9,38 +9,46 @@ const multer = require('multer')
 const app = express()
 app.use(express.json())
 
-app.use(cors({Credential:true,origin: process.env.URL_FRONTEND}))
+app.use(cors({ Credential: true, origin: process.env.URL_FRONTEND }))
 
 const imageStorage = multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,'classificar/')
+    destination: function (req, file, cb) {
+        cb(null, 'classificar/')
     },
-    filename:function(req,file,cb){
-        cb(null,Date.now()+path.extname(file.originalname))
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname))
     }
 
 })
 
 const imageUpload = multer({
-    storage:imageStorage,
-    fileFilter(req,file,cb){
-        if(!file.originalname.match(/\.(png|jpg)$/)) { 
+    storage: imageStorage,
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(png|jpg)$/)) {
             return cb(new Error('Por favor envie apenas JPG ou PNG !!!'))
         }
-        cb(undefined,true) 
+        cb(undefined, true)
     }
 })
 
 
-app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
-    
-    if(!req.file){
-        return res.status(400).json({script:'erro', message: 'Imagem não fornecida , por favor verifique !!!' })
+app.post('/analyze-image', imageUpload.single('image'), (req, res) => {
+
+    if (!req.file) {
+        return res.status(400).json({ script: 'erro', message: 'Imagem não fornecida , por favor verifique !!!' })
     }
+
+    const classificarDir = path.join(__dirname, 'classificar');
+
+    if (!fs.existsSync(classificarDir)) {
+        fs.mkdirSync(classificarDir, { recursive: true });
+        console.log('Pasta "classificar" criada.');
+    }
+
 
     const imagePath = path.resolve(req.file.path)
     console.log(`image path : ${imagePath}`)
-    
+
     // const pythonProcess = spawn('python3', ['index.py', imagePath])
     const pythonPath = path.join(__dirname, 'venv', 'Scripts', 'python.exe')
     const pythonProcess = spawn(pythonPath, ['index.py', imagePath])
@@ -53,8 +61,8 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Erro: ${data}`)
     })
-    
-    
+
+
 
     pythonProcess.on('close', (code) => {
         fs.unlink(imagePath, (err) => {
@@ -62,14 +70,15 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
         });
 
         if (code !== 0) {
-            return res.status(500).json({ 
-                script:'erro',
-                error: 'Erro ao executar o script Python' })
+            return res.status(500).json({
+                script: 'erro',
+                error: 'Erro ao executar o script Python'
+            })
         }
         try {
             const parsedOutput = JSON.parse(pythonOutput.trim())
             res.status(200).json({
-                script:'ok',
+                script: 'ok',
                 parsedOutput
             })
             // if(parsedOutput.categoria === 'erro'){
@@ -84,8 +93,8 @@ app.post('/analyze-image',imageUpload.single('image'),(req,res)=>{
     })
 })
 
-app.get('/',(req,res)=>{
-    res.status(200).json({message:'Esta funcionando !!!'})
+app.get('/', (req, res) => {
+    res.status(200).json({ message: 'Esta funcionando !!!' })
 })
 
 app.use((err, req, res, next) => {
@@ -102,6 +111,6 @@ app.use((err, req, res, next) => {
 
 
 const PORT = process.env.PORT || 3000
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log(`Servidor rodando na porta : ${process.env.PORT} na url ${process.env.URL_API}`)
 })
