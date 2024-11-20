@@ -49,16 +49,12 @@ export default function BodyUpload() {
             })
                 .then((response) => {
                     console.log(`then response : ${JSON.stringify(response.data)}`)
-                    if (response.data.classification === 'erro') {
-                        // localStorage.setItem('vowel', 'undefined')
-                        // localStorage.setItem('category', response.data.parsedOutput.categoria)
-                        // localStorage.setItem('similarity', 'undefined')
+                    if (response.data.parsedOutput.categoria === 'Não foi possivél fazer a classificação da imagem como uma vogal !!!') {
                         if (typeof window !== 'undefined') {
                             localStorage.setItem('vowel', 'undefined')
                             localStorage.setItem('category', response.data.parsedOutput.categoria)
                             localStorage.setItem('similarity', 'undefined')
                         }
-                        
                         setLoading(false)
                         redirectToResult()
                     } else {
@@ -66,9 +62,9 @@ export default function BodyUpload() {
                         // localStorage.setItem('category', response.data.parsedOutput.categoria)
                         // localStorage.setItem('similarity', response.data.parsedOutput.similaridade)
                         if (typeof window !== 'undefined') {
-                            localStorage.setItem('vowel', 'undefined')
+                            localStorage.setItem('vowel', response.data.parsedOutput.vogal)
                             localStorage.setItem('category', response.data.parsedOutput.categoria)
-                            localStorage.setItem('similarity', 'undefined')
+                            localStorage.setItem('similarity', response.data.parsedOutput.similaridade)
                         }
 
                         setLoading(false)
@@ -77,10 +73,6 @@ export default function BodyUpload() {
                     return response.data
                 })
                 .catch((Erro) => {
-                    // console.log('entrou aqui')
-                    // localStorage.setItem('erro',Erro.response.data.message)
-                    // console.log(`Erro : ${JSON.stringify(Erro.response.data)}`)
-                    // router.push('/erro')
                     if (!Erro.response) {
                         console.log('Erro sem resposta da API')
                         localStorage.setItem('erro', 'undefined')
@@ -116,7 +108,7 @@ export default function BodyUpload() {
                 <div >
                     <h2 className="mt-3 mb-3 font-bold text-custom-blue">Pré-visualização da imagem:</h2>
                     {/* <img src={imagePreview} alt="Pré-visualização" style={{ maxWidth: '350px', maxHeight: '350px', borderRadius: '8px', margin: 'auto' }} /> */}
-                    <Image src={imagePreview} alt='preview' className="rounded-lg m-auto max-w-fullmax-h-80" width={300} height={300}></Image>
+                    <Image src={imagePreview} alt='preview' className="rounded-lg m-auto " width={260} height={260}></Image>
                     <button className="bg-custom-blue h-[40px] w-[180px] mt-8 rounded-md duration-500 hover:scale-110 text-white " onClick={uploadFile}>Analisar imagem</button>
                     <button className="bg-custom-blue h-[40px] w-[180px]  ml-4 rounded-md duration-500 hover:scale-110 text-white" onClick={redirectToUpload}>Limpar Seleção</button>
                 </div>

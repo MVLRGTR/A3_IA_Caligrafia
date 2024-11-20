@@ -47,7 +47,7 @@ export default function BodyResult() {
                 //     alt="Pré-visualização"
                 //     style={{ maxWidth: '350px', maxHeight: '280px', borderRadius: '8px', margin: 'auto' }}
                 // />
-                <Image src={imagePreview} alt='preview' className="max-w-[350px] h-auto rounded-lg m-auto" width={300} height={300}></Image>
+                <Image src={imagePreview} alt='preview' className="rounded-lg m-auto" width={250} height={250}></Image>
             )}
                 <div className="bg-white rounded-md p-5 mb-5 mt-5 shadow-md  flex flex-col justify-between">
                     {vowel !== 'undefined' && (

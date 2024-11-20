@@ -23,16 +23,17 @@ app.use(cors({ Credential: true, origin: process.env.URL_FRONTEND }))
 
 const imageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        const classificarDir = path.resolve(__dirname, 'classificar')
-        cb(null, classificarDir)
+        const tempDir = '/tmp' // Diretório temporário permitido pela Vercel
+        cb(null, tempDir);
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname))
+        cb(null, Date.now() + path.extname(file.originalname));
     }
-})
+});
 
 
-const imageUpload = multer({
+
+const imageUpload = multer({ 
     storage: imageStorage,
     fileFilter(req, file, cb) {
         if (!file.originalname.match(/\.(png|jpg)$/)) {
@@ -48,14 +49,6 @@ app.post('/analyze-image', imageUpload.single('image'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ script: 'erro', message: 'Imagem não fornecida , por favor verifique !!!' })
     }
-
-    // const classificarDir = path.join(__dirname, 'classificar');
-
-    // if (!fs.existsSync(classificarDir)) {
-    //     fs.mkdirSync(classificarDir, { recursive: true });
-    //     console.log('Pasta "classificar" criada.');
-    // }
-
 
     const imagePath = path.resolve(req.file.path)
     console.log(`image path : ${imagePath}`)
@@ -92,11 +85,6 @@ app.post('/analyze-image', imageUpload.single('image'), (req, res) => {
                 script: 'ok',
                 parsedOutput
             })
-            // if(parsedOutput.categoria === 'erro'){
-            //     res.status(200).json({classification:'erro',parsedOutput})
-            // }else{
-            //     res.status(200).json({classification:'ok',parsedOutput})
-            // }
         } catch (err) {
             console.error(`Erro ao analisar a saída do Python: ${err}`);
             res.status(500).json({ message: 'Erro ao processar a saída do script Python' });
