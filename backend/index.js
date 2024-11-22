@@ -66,7 +66,7 @@ app.post('/analyze-image', imageUpload.single('image'), (req, res) => {
         console.error(`Erro: ${data}`)
     })
 
-
+//teste
 
     pythonProcess.on('close', (code) => {
         fs.unlink(imagePath, (err) => {
