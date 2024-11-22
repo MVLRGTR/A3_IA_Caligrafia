@@ -54,7 +54,7 @@ app.post('/analyze-image', imageUpload.single('image'), (req, res) => {
     console.log(`image path : ${imagePath}`)
 
     // const pythonProcess = spawn('python3', ['index.py', imagePath])
-    const pythonPath = path.join(__dirname, 'venv', 'Scripts', 'python.exe')
+    const pythonPath = path.join(__dirname, 'myenv', 'bin', 'python3')
     const pythonProcess = spawn(pythonPath, ['index.py', imagePath])
 
     let pythonOutput = ''
