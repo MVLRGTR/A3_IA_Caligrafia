@@ -1,2 +1,2 @@
-/backend/myenv
-/backend/.env
+/backend/venv
+/backend/node_modules
