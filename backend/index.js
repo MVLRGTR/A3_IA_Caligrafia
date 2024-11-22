@@ -11,25 +11,25 @@ app.use(express.json())
 
 app.use(cors({ Credential: true, origin: process.env.URL_FRONTEND }))
 
+const imageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'classificar/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+
+})
+
 // const imageStorage = multer.diskStorage({
 //     destination: function (req, file, cb) {
-//         cb(null, 'classificar/')
+//         const tempDir = 'classificar/' // Diretório temporário permitido pela Vercel
+//         cb(null, tempDir)
 //     },
 //     filename: function (req, file, cb) {
 //         cb(null, Date.now() + path.extname(file.originalname))
 //     }
-
 // })
-
-const imageStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const tempDir = '/tmp' // Diretório temporário permitido pela Vercel
-        cb(null, tempDir);
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
 
 
 
@@ -60,6 +60,7 @@ app.post('/analyze-image', imageUpload.single('image'), (req, res) => {
     let pythonOutput = ''
     pythonProcess.stdout.on('data', (data) => {
         pythonOutput += data.toString()
+        console.log(`pythonout ${pythonOutput}`)
     })
 
     pythonProcess.stderr.on('data', (data) => {

@@ -88,5 +88,9 @@ if len(sys.argv) < 2:
     sys.exit(1)
 # image_path = './classificar/'+os.path.basename(sys.argv[1])
 image_path = sys.argv[1]
+<<<<<<< Updated upstream
+=======
+print(f'image_path : ${image_path}')
+>>>>>>> Stashed changes
 resultado = main(image_path)
 print(json.dumps(resultado))
