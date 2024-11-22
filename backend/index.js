@@ -11,25 +11,24 @@ app.use(express.json())
 
 app.use(cors({ Credential: true, origin: process.env.URL_FRONTEND }))
 
-// const imageStorage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, 'classificar/')
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, Date.now() + path.extname(file.originalname))
-//     }
+//const imageStorage = multer.diskStorage({
+//    destination: function (req, file, cb) {
+//        cb(null, 'classificar/')
+//    },
+//    filename: function (req, file, cb) {
+//        cb(null, Date.now() + path.extname(file.originalname))
+//    }
+//})
 
-// })
-
-const imageStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const tempDir = '/tmp' // Diretório temporário permitido pela Vercel
-        cb(null, tempDir);
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
+ const imageStorage = multer.diskStorage({
+     destination: function (req, file, cb) {
+         const tempDir = '/tmp' // Diretório temporário permitido pela Vercel
+         cb(null, tempDir)
+     },
+     filename: function (req, file, cb) {
+         cb(null, Date.now() + path.extname(file.originalname))
+     }
+ })
 
 
 
@@ -54,19 +53,20 @@ app.post('/analyze-image', imageUpload.single('image'), (req, res) => {
     console.log(`image path : ${imagePath}`)
 
     // const pythonProcess = spawn('python3', ['index.py', imagePath])
-    const pythonPath = path.join(__dirname, 'myenv', 'bin', 'python3')
+    const pythonPath = path.join(__dirname, 'venv', 'bin', 'python3')
     const pythonProcess = spawn(pythonPath, ['index.py', imagePath])
 
     let pythonOutput = ''
     pythonProcess.stdout.on('data', (data) => {
         pythonOutput += data.toString()
+        console.log(`pythonout ${pythonOutput}`)
     })
 
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Erro: ${data}`)
     })
 
-
+//teste
 
     pythonProcess.on('close', (code) => {
         fs.unlink(imagePath, (err) => {
