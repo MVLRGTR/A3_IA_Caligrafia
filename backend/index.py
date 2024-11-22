@@ -87,6 +87,7 @@ if len(sys.argv) < 2:
     print("Erro: Caminho da imagem não foi fornecido.")
     sys.exit(1)
 # image_path = './classificar/'+os.path.basename(sys.argv[1])
+#args
 image_path = sys.argv[1]
 <<<<<<< Updated upstream
 =======
