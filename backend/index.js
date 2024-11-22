@@ -9,7 +9,8 @@ const multer = require('multer')
 const app = express()
 app.use(express.json())
 
-app.use(cors({ Credential: true, origin: process.env.URL_FRONTEND }))
+//app.use(cors({ credential: true, origin: process.env.URL_FRONTEND }))
+app.use(cors())
 
 //const imageStorage = multer.diskStorage({
 //    destination: function (req, file, cb) {
