@@ -9,8 +9,7 @@ import codigo from "../../../public/images/codigo.png"
 import github from "../../../public/logogithub.png"
 
 const tagp = {
-    margin: 'auto',
-    marginTop: '0.75rem',
+    marginTop: '0.80rem',
     color: '#1a2639',
     fontWeight: 'bold'
 }
@@ -27,12 +26,13 @@ export default function BodyAboutUs() {
                 <article className="flex flex-col w-[650px] m-auto mt-14">
                     <h2 className="m-auto text-xl font-semibold text-center text-custom-blue ">Etapa 1: Pré-processamento das imagens</h2>
                     <Image src={imageImport} alt="imports" className="rounded-lg m-auto mt-3"></Image>
-                    <p style={tagp}>•	A imagem de entrada é carregada em escala de cinza utilizando cv2.imread</p>
-                    <p style={tagp}>•	A imagem é redimensionada para 100x100 pixels , abaixo temos a representação da imagem que foi lida pelo opencv com o filtro cinza.</p>
+                    <p style={tagp}>•	A imagem de entrada é carregada utilizando cv2.imread e aplicado um filtro cinza cv2.IMREAD_GRAYSCALE.</p>
+                    <p style={tagp}>•	Depois redimensionamos a imagem para 100x100 pixels.</p>
+                    <p style={tagp}>•	A imagem com resize tem o formato de dados de uma matrix, isso acontece porque toda imagem e formada por pixel e cada pixel é formado por um conjunto RGB , no nosso caso utilizamos o filtro cinza , fazendo assim com que cada pixel contenha apenas agora um valor, onde 0 representa a cor preta , 255 o branco e valores intermediários representam tons de cinza.</p>
                     <Image src={matrix} alt="matrix" className="rounded-lg m-auto mt-3"></Image>
-                    <p style={tagp}>•	Depois de feito o redimensionamento na imagem, agora ela é transformada em um vetor de 10.000 dimensões com o método .flatten().</p>
+                    <p style={tagp}>•	Depois de feito o redimensionamento na imagem, agora ela é transformada em um vetor de 10.000 dimensões com o método .flatten() que contém as informações de cada pixel da imagem.</p>
                     <Image src={vetor} alt="vetor" className="rounded-lg m-auto mt-3"></Image>
-                    <p style={tagp}>•	Sendo assim a imagem é transformada em um vetor , isso é possível pois cada pixels é formado por um conjunto RGB , é quando aplicamos o filtro cinza cada pixel armazena um valor de intensidade de 0 a 255 onde 0 representa o preto e o 255 o branco , assim chegamos ao nosso primeiro objetivo que é transformar a imagem em um dado manipulável para os próximos passos. </p>
+                    <p style={tagp}>•   Sendo assim a imagem é transformada em um vetor, chegando ao nosso primeiro objetivo que é transformar a imagem em um dado manipulável para os próximos passos. </p>
                 </article>
                 <article className="flex flex-col w-[650px] m-auto mt-14">
                     <h2 className="m-auto text-xl font-semibold text-center text-custom-blue ">Etapa 2: Comparação das imagens</h2>
