@@ -8,51 +8,67 @@ import similaridade from "../../../public/images/cossenos.png"
 import codigo from "../../../public/images/codigo.png"
 import github from "../../../public/logogithub.png"
 
+const tagp = {
+    margin: 'auto',
+    marginTop: '0.75rem',
+    color: '#1a2639',
+    fontWeight: 'bold'
+}
+
 export default function BodyAboutUs() {
     return (
         <div className="m-auto flex flex-col">
-            <h1 className="text-4xl font-bold m-auto text-custom-blue">Projeto A3</h1>
+            <h1 className="text-4xl font-bold m-auto text-custom-blue mt-8">Projeto A3</h1>
             <p className=" w-[750px] m-auto mt-6 text-lg font-semibold text-center text-custom-blue">Esse projeto foi desenvolvido para a Avaliação nº3, que consiste em colocar em prática o conhecimento adquirido em sala de aula e demonstrar a aplicação dos conceitos de forma funcional. O objetivo principal é criar uma solução que reúna as habilidades e técnicas aprendidas durante o curso de inteligência artificial ,focando no aprendizado dos modelos de I.A.</p>
             <p className="w-[750px] m-auto mt-6 text-lg font-semibold text-center text-custom-blue">O projeto foi desenvolvido pelos alunos : <strong>Henrique Rocha</strong> , <strong>Marcos Ribeiro</strong> , <strong>Pedro Martins</strong> , <strong>Rafael Ribeiro</strong> e <strong>Sergio</strong> ambos cursando Ciência da computação na Unifacs , campus C.T.N na U.C de Inteligência Artificial com a professora Camila Moura Ferreira dos Santo</p>
-            <section>
-                <h1>Funcionamento do Algoritmo</h1>
-                <p>O algoritmo que nós construímos para fazer o reconhecimento das vogais, se baseia no princípio de similaridade de cossenos, onde fazemos o tratamento prévio da imagem, transformando-a em um dado computacional e depois aplicando a equação da trigonometria de similaridade de cossenos.</p>
-                <article>
-                    <h2>Etapa 1: Pré-processamento das imagens</h2>
-                    <Image src={imageImport} alt="imports"></Image>
-                    <p>•	A imagem de entrada é carregada em escala de cinza utilizando cv2.imread</p>
-                    <p>•	A imagem é redimensionada para 100x100 pixels , abaixo temos a representação da imagem que foi lida pelo opencv com o filtro cinza.</p>
-                    <Image src={matrix} alt="matrix"></Image>
-                    <p>•	Depois de feito o redimensionamento na imagem, agora ela é transformada em um vetor de 10.000 dimensões com o método .flatten().</p>
-                    <Image src={vetor} alt="vetor"></Image>
-                    <p>•	Sendo assim a imagem é transformada em um vetor , isso é possível pois cada pixels é formado por um conjunto RGB , é quando aplicamos o filtro cinza cada pixel armazena um valor de intensidade de 0 a 255 onde 0 representa o preto e o 255 o branco , assim chegamos ao nosso primeiro objetivo que é transformar a imagem em um dado manipulável para os próximos passos. </p>
+            <section className="flex flex-col">
+                <h1 className="text-4xl font-bold m-auto text-custom-blue mt-8">Funcionamento do Algoritmo</h1>
+                <p className=" w-[750px] m-auto mt-6 text-lg font-semibold text-center text-custom-blue">O algoritmo que nós construímos para fazer o reconhecimento das vogais, se baseia no princípio de similaridade de cossenos, onde fazemos o tratamento prévio da imagem, transformando-a em um dado computacional e depois aplicando a equação da trigonometria de similaridade de cossenos.</p>
+                <article className="flex flex-col w-[650px] m-auto mt-14">
+                    <h2 className="m-auto text-xl font-semibold text-center text-custom-blue ">Etapa 1: Pré-processamento das imagens</h2>
+                    <Image src={imageImport} alt="imports" className="rounded-lg m-auto mt-3"></Image>
+                    <p style={tagp}>•	A imagem de entrada é carregada em escala de cinza utilizando cv2.imread</p>
+                    <p style={tagp}>•	A imagem é redimensionada para 100x100 pixels , abaixo temos a representação da imagem que foi lida pelo opencv com o filtro cinza.</p>
+                    <Image src={matrix} alt="matrix" className="rounded-lg m-auto mt-3"></Image>
+                    <p style={tagp}>•	Depois de feito o redimensionamento na imagem, agora ela é transformada em um vetor de 10.000 dimensões com o método .flatten().</p>
+                    <Image src={vetor} alt="vetor" className="rounded-lg m-auto mt-3"></Image>
+                    <p style={tagp}>•	Sendo assim a imagem é transformada em um vetor , isso é possível pois cada pixels é formado por um conjunto RGB , é quando aplicamos o filtro cinza cada pixel armazena um valor de intensidade de 0 a 255 onde 0 representa o preto e o 255 o branco , assim chegamos ao nosso primeiro objetivo que é transformar a imagem em um dado manipulável para os próximos passos. </p>
                 </article>
-                <article>
-                    <h2>Etapa 2: Comparação das imagens</h2>
-                    <p>•	Como as imagens são transformadas em vetores, para sabermos se uma imagem é semelhante a outra, utilizamos uma equação chamada de similaridade de cossenos, onde valores próximos a 1 indicam ângulo baixo entre os vetores e valores próximos a 0 indicam o um ângulo maior entre os vetores. Sendo assim quando menor o ângulo entre os vetores maior é a similaridade entre eles e consequentemente entre as imagens que foram transformadas nesses vetores.</p>
-                    <Image src={vetores} alt="vetores"></Image>
-                    <Image src={similaridade} alt="similaridade cossenos"></Image>
+                <article className="flex flex-col w-[650px] m-auto mt-14">
+                    <h2 className="m-auto text-xl font-semibold text-center text-custom-blue ">Etapa 2: Comparação das imagens</h2>
+                    <p style={tagp}>•	Como as imagens são transformadas em vetores, para sabermos se uma imagem é semelhante a outra, utilizamos uma equação chamada de similaridade de cossenos, onde valores próximos a 1 indicam ângulo baixo entre os vetores e valores próximos a 0 indicam o um ângulo maior entre os vetores. Sendo assim quando menor o ângulo entre os vetores maior é a similaridade entre eles e consequentemente entre as imagens que foram transformadas nesses vetores.</p>
+                    <Image src={vetores} alt="vetores" className="rounded-lg m-auto mt-3"></Image>
+                    <Image src={similaridade} alt="similaridade cossenos" className="rounded-lg m-auto mt-3"></Image>
                 </article>
-                <article>
-                    <h2>Etapa 3: Comparação da imagem de entrada com a base de dados</h2>
-                    <p>•	A imagem de entrada é pré-processada da mesma forma que as imagens de referência.</p>
-                    <p>•	Para cada vogal e categoria, o algoritmo calcula a similaridade de cossenos entre o vetor da imagem de entrada e cada vetor de referência dentro dessa categoria.</p>
-                    <p>•	O código:
+                <article className="flex flex-col w-[650px] m-auto mt-14">
+                    <h2 className="m-auto text-xl font-semibold text-center text-custom-blue mt-12">Etapa 3: Comparação da imagem de entrada com a base de dados</h2>
+                    <p style={tagp}>•	A imagem de entrada é pré-processada da mesma forma que as imagens de referência.</p>
+                    <p style={tagp}>•	Para cada vogal e categoria, o algoritmo calcula a similaridade de cossenos entre o vetor da imagem de entrada e cada vetor de referência dentro dessa categoria.</p>
+                    <p style={tagp}>•	O código:
                         o	Armazena o valor máximo de similaridade de cada categoria.
                         o	Identifica a vogal e a categoria com maior similaridade geral.
                     </p>
-                    <Image src={codigo} alt="Trecho código"></Image>
+                    <Image src={codigo} alt="Trecho código" className="rounded-lg m-auto mt-3"></Image>
                 </article>
-                <article>
-                    <h2>Etapa 4: Logica de decisão</h2>
-                    <p>•	O algoritmo usa um limite de similaridade (0.95 neste caso) para decidir se a imagem de entrada pode ser classificada com confiança como pertencente a uma vogal e categoria.</p>
-                    <p>•	Se a similaridade máxima for maior que 0.95
+                <article className="flex flex-col w-[650px] m-auto mt-14">
+                    <h2 className="m-auto text-xl font-semibold text-center text-custom-blue mt-12">Etapa 4: Logica de decisão</h2>
+                    <p style={tagp}>•	O algoritmo usa um limite de similaridade (0.95 neste caso) para decidir se a imagem de entrada pode ser classificada com confiança como pertencente a uma vogal e categoria.</p>
+                    <p style={tagp}>•	Se a similaridade máxima for maior que 0.95
                         o	Retorna a vogal, categoria e o valor da similaridade.
-                        •	Caso contrário
-                        o	Indica que não foi possível classificar a imagem
+                        	Caso contrário
+                        	Indica que não foi possível fazer classificação da imagem.
                     </p>
                 </article>
-                <Link href={''}><Image src={github} alt="githubimage" className=" w-[100px] h-[100px] rounded-full m-4 shadow-2xl"></Image>Link do repositorio</Link>
+                {/* <Link href={''} className="fflex items-center space-x-4"><Image src={github} alt="githubimage" className=" w-[100px] h-[100px] rounded-full shadow-2xl"></Image>Link do repositorio</Link> */}
+                <Link href={'https://github.com/MVLRGTR/A3_IA_Caligrafia'} target="_blank" className="flex items-center space-x-4 m-auto mt-8 mb-8">
+                    <Image
+                        src={github}
+                        alt="githubimage"
+                        className="w-[100px] h-[100px] rounded-full shadow-2xl"
+                    />
+                    <span className="text-custom-blue text-lg">Link do repositório</span>
+                </Link>
+
             </section>
         </div>
     )
