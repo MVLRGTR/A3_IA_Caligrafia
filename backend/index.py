@@ -70,7 +70,7 @@ def main(image_path):
     test_image = process_image(image_path)
     best_vogal, best_category, score = identify_vowel(test_image, reference_images)
 
-    if (best_vogal and score > 0.95):
+    if (best_vogal and score > 0.994):
         resultado = {
             "vogal" : best_vogal,
             "categoria":best_category,
