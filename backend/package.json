@@ -8,7 +8,7 @@
   },
   "scripts": {
   "start": "node index.js",
-  "install:venv": "python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt",
+  "install:venv": "python3 -m venv venv && . venv/Scripts/activate && pip install -r requirements.txt",
   "postinstall": "npm run install:venv"
 },
   "author": "Grupo A3",
