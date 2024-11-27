@@ -12,15 +12,6 @@ app.use(express.json())
 //app.use(cors({ credential: true, origin: process.env.URL_FRONTEND }))
 app.use(cors())
 
-//const imageStorage = multer.diskStorage({
-//    destination: function (req, file, cb) {
-//        cb(null, 'classificar/')
-//    },
-//    filename: function (req, file, cb) {
-//        cb(null, Date.now() + path.extname(file.originalname))
-//    }
-//})
-
  const imageStorage = multer.diskStorage({
      destination: function (req, file, cb) {
          const tempDir = '/tmp' // Diretório temporário permitido pela Vercel
