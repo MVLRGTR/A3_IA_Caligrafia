@@ -7,6 +7,7 @@ Para rodar o projeto localmente no Linux:
 4º - Após feito a instalação das dependências na pasta backend , abra outro prompt e entre na pasta frontend.
 5ª - rode o comando npm install.
 6º - Após a instalação das dependências , rode o comando npm run dev.
+7º - Após isso abra o navegador em http://localhost:3000 e o projeto estará rodando.
 
 Para rodar o projeto localmente no Windows:
 1º - instalar o node na versão 20.x https://nodejs.org/pt/download/package-manager
